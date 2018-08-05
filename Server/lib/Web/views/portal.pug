@@ -1,0 +1,114 @@
+//-
+	Rule the words! KKuTu Online
+	Copyright (C) 2017 JJoriping(op@jjo.kr)
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
+extends layout
+
+block Subject
+	title= L('title')
+
+block CSS
+	link(rel='stylesheet', href='/css/in_game_kkutu.css')
+
+block Middle
+
+	+separator(5)
+	+separator(5)
+	div(style='float: left; width: 100%;')
+		div(style='float: left; padding-left: 0px;')
+			h3#holder= L('title').replace(/\[.+?\]/g, "")
+			img#logo(src='/img/kkutu/short_logo.png')
+	div.leftmenu(style='float: left; width: 151px;')
+		a(href='/?server=0')
+			img#discord(src='/img/kkutu/shop/discord.png', width="200px")
+		br
+		a(href='https://discord.gg/Azb23q8', target='_blank')
+			img#discord(src='/img/kkutu/shop/discord2.png', width="200px")
+		a(href='https://cafe.naver.com/letsgokkutu2', target='_blank')
+			img#discord(src='/img/kkutu/shop/discord3.png', width="200px")
+		h3.server-list-title
+			a#server-refresh
+				+FA('refresh')
+				+Expl(L('serverRefresh'))
+			label= L('serverList')
+			label#server-total(style='color: #AAA; font-size: 13px;')
+		div#server-list
+		a(href='http://gkkutu.kro.kr', target='_blank')
+			img#discord(src='/img/kkutu/shop/gkkutu.png', width="200px")
+		a(href='http://satskkutu.kro.kr', target='_blank')
+			img#discord(src='/img/kkutu/shop/sats.png', width="200px")
+		a(href='http://갓투.kr', target='_blank')
+			img#discord(src='/img/kkutu/shop/god.png', width="200px")
+		a(href='http://kkutugood.kro.kr', target='_blank')
+			img#discord(src='/img/kkutu/shop/kkutugood.png', width="200px")
+		a(href='http://끄투.닷넷', target='_blank')
+			img#discord(src='/img/kkutu/shop/dot.png', width="200px")
+		a(href='http://http://metu.oa.to:90', target='_blank')
+			img#discord(src='/img/kkutu/shop/cheat.png', width="200px")
+	
+	
+	div(style='float: right; width: 80%;')
+			iframe#kkutu-bulletin(width='100%', height='100px', src='/banner.png')
+	div(style='float: right; width: 80%;')
+			iframe#kkutu-bulletin(width='100%', height='100px', src='/update.png')
+	div(style='float: right; width: 45%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='500px', src='/kkutu_bulletin.html')
+				div(style='float: right; width: calc(50% - 78px);')
+	div(style='float: right; width: 35%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='250px', src='/kkutu_bulletin2.html')
+			br
+	div(style='float: right; width: 35%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='240px', src='/kkutu_bulletin3.html')
+
+		
+	+separator(10)
+	
+
+block Bottom
+	div.bottom-legal!= L('dictionarySupport')
+	div.bottom-legal!= L('etcSupport')
+	block Bottom
+	script.
+		function setParam(name, value) {
+		var l = window.location;
+		/* build params */
+		var params = {};
+		var x = /(?:\\??)([^=&?]+)=?([^&?]*)/g;
+		var s = l.search;
+		for(var r = x.exec(s); r; r = x.exec(s))
+		{
+		r[1] = decodeURIComponent(r[1]);
+		if (!r[2]) r[2] = '%%';
+		params[r[1]] = r[2];
+		}
+		/* set param */
+		params[name] = encodeURIComponent(value);
+		/* build search */
+		var search = [];
+		for(var i in params)
+		{
+		var p = encodeURIComponent(i);
+		var v = params[i];
+		if (v != '%%') p += '=' + v;
+		search.push(p);
+		}
+		search = search.join('&');
+		/* execute search */
+		l.search = search;
+		}
+	div.bottom-legal!="언어를 선택하세요 Please choose the language."
+	a(href="javascript:setParam('locale', 'ko_KR');") 한국어 Korean
+	br
+	a(href="javascript:setParam('locale', 'en_US');") 영어 English

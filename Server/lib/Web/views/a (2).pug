@@ -1,0 +1,112 @@
+//-
+	Rule the words! KKuTu Online
+	Copyright (C) 2017 JJoriping(op@jjo.kr)
+	Copyright (C) 2017 GodTu(admin@godtu.cf)
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
+extends layout
+
+block Subject
+	title= L('title')
+block CSS
+	link(rel='stylesheet', href='/css/in_game_kkutu.css')
+
+block Middle
+
+	+separator(5)
+	+separator(5)
+	div.leftmenu(style='float: left; width: 151px;')
+		a(href='/?server=0')
+			img#discord(src='/img/kkutu/ko_KR/discord.png', width="150px")
+		br
+		a(href='https://cafe.naver.com/godtus', target='_blank')
+			img#discord(src='/img/kkutu/ko_KR/navercafe.png', width="150px")
+		a(href='https://discordapp.com/invite/Ykp2qCF', target='_blank')
+			img#discord(src='/img/kkutu/ko_KR/donate.png', width="150px")
+		a(href='https://discordapp.com/invite/Ykp2qCF', target='_blank')
+			img#discord(src='/img/kkutu/ko_KR/kakao.png', width="150px")
+		h3.server-list-title
+			a#server-refresh
+				+FA('refresh')
+				+Expl(L('serverRefresh'))
+			label= L('serverList')
+			label#server-total(style='color: #AAA; font-size: 13px;')
+		div#server-list
+	div(style='float: right; width: calc(50% - 78px);')
+		div(style='float: right; width: 100% ; background-color: #0174DF; color: black;')
+			font(size=2, style='color: white;') &nbsp;업데이트 내역
+		br
+		div(style='float: right; width: 100%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='400px', src='/notice.html')
+
+	div(style='float: left; width: calc(50% - 80px); margin-left: 5px;')
+		div(style='float: right; width: 100% ; background-color: #0174DF; color: black;')
+			font(size=2, style='color: white;') &nbsp;이벤트
+		br
+		div(style='float: right; width: 100%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='250px', src='/event.html')
+	div(style='float: left; width: calc(50% - 80px); margin-left: 5px;')
+		div(style='float: right; width: 100% ; background-color: #0174DF; color: black;')
+			font(size=2, style='color: white;') &nbsp;공지사항
+		br
+		div(style='float: right; width: 100%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='121.5px', src='/kkt_notice.html')
+				div(style='float: right; width: calc(50% - 78px);')
+					div(style='float: left; width: calc(50% - 80px); margin-left: 5px;')
+		div(style='float: left; width: 201% ; background-color: #0174DF; color: black;')
+			font(size=2, style='color: white;') &nbsp;기타
+		br
+		div(style='float: left; width: 201%; background-color: #FFFFFF;')
+			iframe#kkutu-bulletin(width='100%', height='130.5px', src='/kkutus.html')
+				div(style='float: right; width: calc(50% - 78px);')
+
+	+separator(10)
+	+Product('AD')
+		script(data-cfasync='false', type='text/javascript', src='<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- 단위5 --><ins class="adsbygoogle"style="display:inline-block;width:728px;height:90px"data-ad-client="ca-pub-6102479272532865"data-ad-slot="3574340510"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>')
+
+block Bottom	
+	div.bottom-legal!= L('dictionarySupport')
+	block Bottom
+	script.
+		function setParam(name, value) {
+		var l = window.location;
+		/* build params */
+		var params = {};
+		var x = /(?:\\??)([^=&?]+)=?([^&?]*)/g;
+		var s = l.search;
+		for(var r = x.exec(s); r; r = x.exec(s))
+		{
+		r[1] = decodeURIComponent(r[1]);
+		if (!r[2]) r[2] = '%%';
+		params[r[1]] = r[2];
+		}
+		/* set param */
+		params[name] = encodeURIComponent(value);
+		/* build search */
+		var search = [];
+		for(var i in params)
+		{
+		var p = encodeURIComponent(i);
+		var v = params[i];
+		if (v != '%%') p += '=' + v;
+		search.push(p);
+		}
+		search = search.join('&');
+		/* execute search */
+		l.search = search;
+		}
+	div.bottom-legal!="언어를 선택하세요 Please choose the language."
+	a(href="javascript:setParam('locale', 'ko_KR');") 한국어 Korean
+	br
+	a(href="javascript:setParam('locale', 'en_US');") 영어 English
